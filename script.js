@@ -1,20 +1,22 @@
 async function fetchData() {
   let response = await fetch(
-    "https://carrentalsystem.cleverapps.io/api/v1/user",
+    "https://cardsproject.cleverapps.io/api/v1/users",
     {
-      method: "GET"
+      method: "GET",
     }
   );
   response = await response.json();
   let users = response.users;
-  let cartona = ``
+  console.log(users);
+
+  let cartona = ``;
   for (let i = 0; i < users.length; i++) {
     cartona += `<tr>
-    <td>${users[i]._id}</td>
+    <td>${i + 1}</td>
     <td>${users[i].name}</td>
-    <td>${users[i].email}</td>
-    <td>${users[i].phoneNumber}</td>
-    <td>${users[i].phoneNumber}</td>
+    <td>${users[i].members}</td>
+    <td>${users[i].amount}</td>
+    <td>${users[i].traderId}</td>
     <td><button
         type="button"
         class="btn btn-warning"
@@ -30,7 +32,7 @@ async function fetchData() {
         حذف
       </button></td>
     </tr>
-    `
+    `;
     document.getElementById("table").innerHTML = cartona;
   }
 }
