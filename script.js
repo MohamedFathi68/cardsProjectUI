@@ -40,7 +40,22 @@ let responsiblePerson = document.getElementById("responsible-person").value;
       alert('حدث خطأ أثناء إرسال البيانات');
     });
   });
-
+async function deleteUser(id) {
+  await fetch(`https://cardsproject.cleverapps.io/api/v1/users/${id}`, {
+    method: "DELETE",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      alert("تم حذف المستخدم بنجاح");
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("حدث خطأ أثناء حذف المستخدم");
+    });
+  
+}
 
 async function fetchData() {
   let response = await fetch(
@@ -55,7 +70,7 @@ async function fetchData() {
 
   let cartona = ``;
   for (let i = 0; i < users.length; i++) {
-    cartona += `<tr>
+    cartona += `<tr id="${users[i]._id}">
     <td>${i + 1}</td>
     <td>${users[i].name}</td>
     <td>${users[i].members}</td>
@@ -72,6 +87,7 @@ async function fetchData() {
     <td><button
         type="button"
         class="btn btn-danger"
+         onclick="deleteUser(${users[i]._id})"
       >
       <i class="fa-solid fa-trash"></i>
         حذف
