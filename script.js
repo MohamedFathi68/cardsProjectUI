@@ -103,47 +103,43 @@ fetchData();
 // Function to fetch and display users based on search query
 async function searchUsers() {
   const searchQuery = document.getElementById('searchInput').value;
+  console.log(searchQuery);
+  
 
-  try {
     let url = `https://cardsproject.cleverapps.io/api/v1/users/${searchQuery}`;
     let response = await fetch(url, {
       method: 'GET',
     });
-    if (!response.ok) {
-      throw new Error('Failed to fetch data');
-    }
-    let data = await response.json();
-    console.log(data);
+    response = await response.json();
+    let users = response.users;
+    console.log(users);
+
 
     // Generate HTML for table rows
     let cartona = ``;
-    data.users.forEach((user, index) => {
+    for (let i = 0; i < users.length; i++) {
       cartona += `
-        <tr id="${user._id}">
-          <td>${index + 1}</td>
-          <td>${user.name}</td>
-          <td>${user.members}</td>
-          <td>${user.amount}</td>
-          <td>${user.trader.name}</td>
-          <td>${user.responsiblePerson}</td>
+        <tr id="${users[i]._id}">
+          <td>${i + 1}</td>
+          <td>${users[i].name}</td>
+          <td>${users[i].members}</td>
+          <td>${users[i].amount}</td>
+          <td>${users[i].trader.name}</td>
+          <td>${users[i].responsiblePerson}</td>
           <td>
             <button type="button" class="btn btn-warning">
               <i class="fa-solid fa-pen-to-square"></i> تعديل
             </button>
           </td>
           <td>
-            <button type="button" class="btn btn-danger" onclick="deleteUser('${user._id}')">
+            <button type="button" class="btn btn-danger" onclick="deleteUser('${users[i]._id}')">
               <i class="fa-solid fa-trash"></i> حذف
             </button>
           </td>
         </tr>
       `;
-    });
+    }
+    document.getElementById("table").innerHTML = cartona;;
 
-    // Update the table body with generated HTML
-    document.getElementById('tableBody').innerHTML = cartona;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    alert('حدث خطأ أثناء جلب البيانات');
-  }
+  
 }
