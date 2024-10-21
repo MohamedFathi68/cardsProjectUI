@@ -22,71 +22,98 @@
     <title>Document</title>
   </head>
   <body>
+    <div class="container mt-5">
+      <h2 class="text-center">نموذج جمع البيانات</h2>
+      <form>
+        <div class="mb-3 w-75 m-auto">
+          <label for="name" class="form-label">الاسم</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="أدخل الاسم"
+          />
+        </div>
 
-      <div class="container mt-5">
-        <h2 class="text-center">نموذج جمع البيانات</h2>
-        <form>
-          <div class="mb-3 w-75 m-auto">
-            <label for="name" class="form-label">الاسم</label>
-            <input type="text" class="form-control" id="name" placeholder="أدخل الاسم">
-          </div>
-      
-          <div class="mb-3 w-75 m-auto">
-            <label for="family-members" class="form-label">عدد الأفراد</label>
-            <select class="form-select" id="members">
-              <option value="1">1 فرد</option>
-              <option value="2">2 فرد</option>
-              <option value="3">3 أفراد</option>
-              <option value="4">4 أفراد</option>
-              <option value="5">5 أفراد</option>
-              <option value="6">6 أفراد</option>
-              <option value="7">7 أفراد</option>
-              <option value="8">8 أفراد</option>
-            </select>
-          </div>
-      
-          <div class="mb-3 w-75 m-auto">
-            <label for="bread-count" class="form-label">عدد الأرغفة</label>
-            <select class="form-select" id="amount">
-              <option value="5">5 أرغفة</option>
-              <option value="10">10 أرغفة</option>
-              <option value="15">15 أرغفة</option>
-              <option value="20">20 أرغفة</option>
-              <option value="25">25 أرغفة</option>
-              <option value="30">30 أرغفة</option>
-              <option value="35">35 أرغفة</option>
-              <option value="40">40 أرغفة</option>
-            </select>
-          </div>
-      
-          <div class="mb-3 w-75 m-auto">
-            <label for="supplier" class="form-label">تاجر التموين</label>
-            <select class="form-select" id="traderId">
-              <option value="6700f6c4cb62dca6d5c9bc27">فاطمه</option>
-              <option value="67166bf2c40bcff4560e3e0b">ابراهيم النويهى</option>
-              <option value="67166c54c40bcff4560e3e0c">وليد شهاب</option>
-              <option value="67166c98c40bcff4560e3e0e">حسام شهاب</option>
-              <option value="67166cd1c40bcff4560e3e0f">محمد نصر</option>
-              <option value="67166cecc40bcff4560e3e10">طارق ابوعبله</option>
-              <option value="67166d0ac40bcff4560e3e11">عواطف</option>
-              <option value="67166d23c40bcff4560e3e12">السيد النويهى</option>
-            </select>
-          </div>
-      
-          <div class="mb-3 w-75 m-auto">
-            <label for="responsible-person" class="form-label">الشخص المسئول</label>
-            <input type="text" class="form-control" id="responsible-person" placeholder="أدخل اسم الشخص المسئول">
-          </div>
-      
+        <div class="mb-3 w-75 m-auto">
+          <label for="family-members" class="form-label">عدد الأفراد</label>
+          <select class="form-select" id="members">
+            <option value="1">1 فرد</option>
+            <option value="2">2 فرد</option>
+            <option value="3">3 أفراد</option>
+            <option value="4">4 أفراد</option>
+            <option value="5">5 أفراد</option>
+            <option value="6">6 أفراد</option>
+            <option value="7">7 أفراد</option>
+            <option value="8">8 أفراد</option>
+          </select>
+        </div>
 
-          <div class="button mb-3 w-75 mx-auto">
+        <div class="mb-3 w-75 m-auto">
+          <label for="bread-count" class="form-label">عدد الأرغفة</label>
+          <select class="form-select" id="amount">
+            <option value="5">5 أرغفة</option>
+            <option value="10">10 أرغفة</option>
+            <option value="15">15 أرغفة</option>
+            <option value="20">20 أرغفة</option>
+            <option value="25">25 أرغفة</option>
+            <option value="30">30 أرغفة</option>
+            <option value="35">35 أرغفة</option>
+            <option value="40">40 أرغفة</option>
+          </select>
+        </div>
 
-            <button type="submit" class="btn btn-primary w-100">إرسال</button>
-          </div>
-        </form>
+        <div class="mb-3 w-75 m-auto">
+          <label for="supplier" class="form-label">تاجر التموين</label>
+          <select class="form-select" id="traderId">
+            <option value="6700f6c4cb62dca6d5c9bc27">فاطمه</option>
+            <option value="67166bf2c40bcff4560e3e0b">ابراهيم النويهى</option>
+            <option value="67166c54c40bcff4560e3e0c">وليد شهاب</option>
+            <option value="67166c98c40bcff4560e3e0e">حسام شهاب</option>
+            <option value="67166cd1c40bcff4560e3e0f">محمد نصر</option>
+            <option value="67166cecc40bcff4560e3e10">طارق ابوعبله</option>
+            <option value="67166d0ac40bcff4560e3e11">عواطف</option>
+            <option value="67166d23c40bcff4560e3e12">السيد النويهى</option>
+          </select>
+        </div>
+
+        <div class="mb-3 w-75 m-auto">
+          <label for="responsible-person" class="form-label"
+            >الشخص المسئول</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="responsible-person"
+            placeholder="أدخل اسم الشخص المسئول"
+          />
+        </div>
+
+        <div class="button mb-3 w-75 mx-auto">
+          <button type="submit" class="btn btn-primary w-100">إرسال</button>
+        </div>
+      </form>
+      <h2 class="text-center">بحث عن المستخدمين</h2>
+  
+      <!-- Search bar -->
+      <div class="my-5 w-75 mx-auto">
+        <label for="searchInput" class="form-label">ابحث عن المستخدمين</label>
+        <input
+          type="text"
+          class="form-control"
+          id="searchInput"
+          placeholder="ادخل كلمة البحث"
+        />
+        <button
+          type="button"
+          class="btn btn-primary mt-2"
+          onclick="searchUsers()"
+        >
+          بحث
+        </button>
       </div>
-      
-      
+    </div>
+
 
     <section class="my-5 pt-1">
       <div class="container my-5">
