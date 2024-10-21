@@ -102,7 +102,7 @@ fetchData();
 
 // Function to fetch and display users based on search query
 async function searchUsers() {
-  const searchQuery = document.getElementById('searchInput').value.trim();
+  const searchQuery = document.getElementById('searchInput').value;
 
   try {
     let url = `https://cardsproject.cleverapps.io/api/v1/users/${searchQuery}`;
