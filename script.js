@@ -1,5 +1,5 @@
 // Handle form submission
-document.querySelector('form').addEventListener('submit', function (event) {
+document.querySelector("form").addEventListener("submit", function (event) {
   event.preventDefault(); // Prevent form from submitting normally
 
   // Get the form data
@@ -15,38 +15,42 @@ document.querySelector('form').addEventListener('submit', function (event) {
     members,
     amount,
     trader,
-    responsiblePerson
+    responsiblePerson,
   };
 
   // Send data using fetch API
-  fetch("https://cardsproject.cleverapps.io/api/v1/users", { // Replace with your actual endpoint
-    method: 'POST',
+  fetch("https://cardsproject.cleverapps.io/api/v1/users", {
+    // Replace with your actual endpoint
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(formData) // Convert form data to JSON
+    body: JSON.stringify(formData), // Convert form data to JSON
   })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
-      alert('تم إرسال البيانات بنجاح');
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
+      alert("تم إرسال البيانات بنجاح");
       fetchData(); // Fetch the updated user list after submission
     })
     .catch((error) => {
-      console.error('Error:', error);
-      alert('حدث خطأ أثناء إرسال البيانات');
+      console.error("Error:", error);
+      alert("حدث خطأ أثناء إرسال البيانات");
     });
 });
 
 // Delete user function
 async function deleteUser(id) {
   try {
-    const response = await fetch(`https://cardsproject.cleverapps.io/api/v1/users/${id}`, {
-      method: "DELETE",
-      headers: {
-        'Content-Type': 'application/json'
+    const response = await fetch(
+      `https://cardsproject.cleverapps.io/api/v1/users/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
+    );
     const data = await response.json();
     console.log(data);
     alert("تم حذف المستخدم بنجاح");
@@ -59,18 +63,23 @@ async function deleteUser(id) {
 
 // Fetch data and render the user table
 async function fetchData() {
-    let response = await fetch("https://cardsproject.cleverapps.io/api/v1/users", {
+  let response = await fetch(
+    "https://cardsproject.cleverapps.io/api/v1/users",
+    {
       method: "GET",
-    });
-    response = await response.json();
-    let users = response.users;
-    console.log(users);
+    }
+  );
+  response = await response.json();
+  let users = response.users;
+  console.log(users);
 
-    let cartona = ``;
-    for (let i = 0; i < users.length; i++) {
-      cartona += `
-        <tr id="${users[i]._id}">
-          <td>${i + 1}</td>
+  let cartona = ``;
+  let totalAmount = 0;
+  for (let i = 0; i < users.length; i++) {
+    totalAmount += users[i].amount;
+    cartona += `
+    <tr id="${users[i]._id}">
+    <td>${i + 1}</td>
           <td>${users[i].name}</td>
           <td>${users[i].members}</td>
           <td>${users[i].amount}</td>
@@ -82,15 +91,17 @@ async function fetchData() {
             </button>
           </td>
           <td>
-            <button type="button" class="btn btn-danger" onclick="deleteUser('${users[i]._id}')">
-              <i class="fa-solid fa-trash"></i> حذف
+            <button type="button" class="btn btn-danger" onclick="deleteUser('${
+              users[i]._id
+            }')">
+            <i class="fa-solid fa-trash"></i> حذف
             </button>
-          </td>
-        </tr>
-      `;
-    }
-    document.getElementById("table").innerHTML = cartona;
-  
+            </td>
+            </tr>
+            `;
+  }
+  document.getElementById("totalAmount").innerHTML = totalAmount;  
+  document.getElementById("table").innerHTML = cartona;
 }
 
 // Fetch data when the page loads
@@ -98,23 +109,24 @@ fetchData();
 
 // Function to fetch and display users based on search query
 async function searchUsers() {
-  const searchQuery = document.getElementById('searchInput').value;
+  const searchQuery = document.getElementById("searchInput").value;
   console.log(searchQuery);
-  
 
-    let url = `https://cardsproject.cleverapps.io/api/v1/users/${searchQuery}`;
-    let response = await fetch(url, {
-      method: 'GET',
-    });
-    response = await response.json();
-    let users = response.users;
-    console.log(users);
+  let url = `https://cardsproject.cleverapps.io/api/v1/users/${searchQuery}`;
+  let response = await fetch(url, {
+    method: "GET",
+  });
+  response = await response.json();
+  let users = response.users;
+  console.log(users);
 
+  // Generate HTML for table rows
+  let cartona = ``;
+  let totalAmount = 0;
 
-    // Generate HTML for table rows
-    let cartona = ``;
-    for (let i = 0; i < users.length; i++) {
-      cartona += `
+  for (let i = 0; i < users.length; i++) {
+    totalAmount += users[i].amount;
+    cartona += `
         <tr id="${users[i]._id}">
           <td>${i + 1}</td>
           <td>${users[i].name}</td>
@@ -128,34 +140,39 @@ async function searchUsers() {
             </button>
           </td>
           <td>
-            <button type="button" class="btn btn-danger" onclick="deleteUser('${users[i]._id}')">
+            <button type="button" class="btn btn-danger" onclick="deleteUser('${
+              users[i]._id
+            }')">
               <i class="fa-solid fa-trash"></i> حذف
             </button>
           </td>
         </tr>
       `;
-    }
-    document.getElementById("table").innerHTML = cartona;;
-//update user
-  
-}async function searchAdmin() {
-  const searchQuery = document.getElementById('searchInputAdmin').value;
+  }
+  document.getElementById("table").innerHTML = cartona;
+  document.getElementById("totalAmount").innerHTML = totalAmount;  
+
+  //update user
+}
+async function searchAdmin() {
+  const searchQuery = document.getElementById("searchInputAdmin").value;
   console.log(searchQuery);
-  
 
-    let url = `https://cardsproject.cleverapps.io/api/v1/users/${searchQuery}`;
-    let response = await fetch(url, {
-      method: 'GET',
-    });
-    response = await response.json();
-    let users = response.users;
-    console.log(users);
+  let url = `https://cardsproject.cleverapps.io/api/v1/users/${searchQuery}`;
+  let response = await fetch(url, {
+    method: "GET",
+  });
+  response = await response.json();
+  let users = response.users;
+  console.log(users);
 
+  // Generate HTML for table rows
+  let cartona = ``;
+  let totalAmount = 0;
 
-    // Generate HTML for table rows
-    let cartona = ``;
-    for (let i = 0; i < users.length; i++) {
-      cartona += `
+  for (let i = 0; i < users.length; i++) {
+    totalAmount += users[i].amount;
+    cartona += `
         <tr id="${users[i]._id}">
           <td>${i + 1}</td>
           <td>${users[i].name}</td>
@@ -169,14 +186,18 @@ async function searchUsers() {
             </button>
           </td>
           <td>
-            <button type="button" class="btn btn-danger" onclick="deleteUser('${users[i]._id}')">
+            <button type="button" class="btn btn-danger" onclick="deleteUser('${
+              users[i]._id
+            }')">
               <i class="fa-solid fa-trash"></i> حذف
             </button>
           </td>
         </tr>
       `;
-    }
-    document.getElementById("table").innerHTML = cartona;;
-//update user
+  }
+  document.getElementById("table").innerHTML = cartona;
+  document.getElementById("totalAmount").innerHTML = totalAmount;  
   
+
+  //update user
 }
