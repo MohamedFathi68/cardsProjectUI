@@ -94,26 +94,43 @@
         </div>
       </form>
       <h2 class="text-center">بحث عن المستخدمين</h2>
-  
+
       <!-- Search bar -->
-      <div class="my-5 w-75 mx-auto">
-        <label for="searchInput" class="form-label">ابحث عن المستخدمين</label>
-        <input
-          type="text"
-          class="form-control"
-          id="searchInput"
-          placeholder="ادخل كلمة البحث"
-        />
-        <button
-          type="button"
-          class="btn btn-primary mt-2"
-          onclick="searchUsers()"
-        >
-          بحث
-        </button>
+      <div class="my-5 w-75 d-flex flex-wrap space-between mx-auto">
+        <div class="w-50 p-2">
+          <label for="searchInput" class="form-label">ابحث عن المستخدمين</label>
+          <input
+            type="text"
+            class="form-control"
+            id="searchInput"
+            placeholder="ادخل كلمة البحث"
+          />
+          <button
+            type="button"
+            class="btn btn-primary mt-2"
+            onclick="searchUsers()"
+          >
+            بحث
+          </button>
+        </div>
+        <div class="w-50 p-2">
+          <label for="searchInput" class="form-label">ابحث عن المسئولين</label>
+          <input
+            type="text"
+            class="form-control"
+            id="searchInputAdmin"
+            placeholder="ادخل كلمة البحث"
+          />
+          <button
+            type="button"
+            class="btn btn-primary mt-2"
+            onclick="searchAdmin()"
+          >
+            بحث
+          </button>
+        </div>
       </div>
     </div>
-
 
     <section class="my-5 pt-1">
       <div class="container my-5">
