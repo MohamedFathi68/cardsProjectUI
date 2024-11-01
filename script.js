@@ -1,4 +1,13 @@
+function clearForm() {
+  document.getElementById("name").value = "";
+  document.getElementById("members").value = "";
+  document.getElementById("amount").value = "";
+  document.getElementById("traderId").value = "";
+  document.getElementById("responsible-person").value = "";
+}
+
 // Handle form submission
+
 document.querySelector("form").addEventListener("submit", function (event) {
   event.preventDefault(); // Prevent form from submitting normally
 
@@ -37,6 +46,7 @@ document.querySelector("form").addEventListener("submit", function (event) {
       console.error("Error:", error);
       alert("حدث خطأ أثناء إرسال البيانات");
     });
+  clearForm();
 });
 
 // Delete user function
@@ -59,6 +69,7 @@ async function deleteUser(id) {
     console.error("Error:", error);
     alert("حدث خطأ أثناء حذف المستخدم");
   }
+  clearForm();
 }
 
 // Fetch data and render the user table
@@ -100,33 +111,37 @@ async function fetchData() {
             </tr>
             `;
   }
-  document.getElementById("totalAmount").innerHTML = totalAmount;  
+  document.getElementById("totalAmount").innerHTML = totalAmount;
   document.getElementById("table").innerHTML = cartona;
+  clearForm();
 }
 
 // Fetch data when the page loads
 fetchData();
 
 // Function to fetch and display users based on search query
-async function searchUsers() {
-  const searchQuery = document.getElementById("searchInput").value;
-  console.log(searchQuery);
+let searchQuery;
+document
+  .getElementById("searchInput")
+  .addEventListener("input", async function (event) {
+    console.log(event.target.value);
+    searchQuery = event.target.value;
 
-  let url = `https://cardsproject.cleverapps.io/api/v1/users/${searchQuery}`;
-  let response = await fetch(url, {
-    method: "GET",
-  });
-  response = await response.json();
-  let users = response.users;
-  console.log(users);
+    let url = `https://cardsproject.cleverapps.io/api/v1/users/${searchQuery}`;
+    let response = await fetch(url, {
+      method: "GET",
+    });
+    response = await response.json();
+    let users = response.users;
+    console.log(users);
 
-  // Generate HTML for table rows
-  let cartona = ``;
-  let totalAmount = 0;
+    // Generate HTML for table rows
+    let cartona = ``;
+    let totalAmount = 0;
 
-  for (let i = 0; i < users.length; i++) {
-    totalAmount += users[i].amount;
-    cartona += `
+    for (let i = 0; i < users.length; i++) {
+      totalAmount += users[i].amount;
+      cartona += `
         <tr id="${users[i]._id}">
           <td>${i + 1}</td>
           <td>${users[i].name}</td>
@@ -148,31 +163,34 @@ async function searchUsers() {
           </td>
         </tr>
       `;
-  }
-  document.getElementById("table").innerHTML = cartona;
-  document.getElementById("totalAmount").innerHTML = totalAmount;  
-
-  //update user
-}
-async function searchAdmin() {
-  const searchQuery = document.getElementById("searchInputAdmin").value;
-  console.log(searchQuery);
-
-  let url = `https://cardsproject.cleverapps.io/api/v1/users/${searchQuery}`;
-  let response = await fetch(url, {
-    method: "GET",
+    }
+    document.getElementById("table").innerHTML = cartona;
+    document.getElementById("totalAmount").innerHTML = totalAmount;
   });
-  response = await response.json();
-  let users = response.users;
-  console.log(users);
 
-  // Generate HTML for table rows
-  let cartona = ``;
-  let totalAmount = 0;
+let searchQueryRes;
+document
+  .getElementById("searchInputAdmin")
+  .addEventListener("input", async function (event) {
+    console.log(event.target.value);
+    searchQueryRes = event.target.value;
+    let url = `https://cardsproject.cleverapps.io/api/v1/users/res/${searchQueryRes}`;
+    let response = await fetch(url, {
+      method: "GET",
+    });
+    response = await response.json();
+    console.log(response);
+    
+    let users = response.user;
+    console.log(users);
 
-  for (let i = 0; i < users.length; i++) {
-    totalAmount += users[i].amount;
-    cartona += `
+    // Generate HTML for table rows
+    let cartona = ``;
+    let totalAmount = 0;
+
+    for (let i = 0; i < users.length; i++) {
+      totalAmount += users[i].amount;
+      cartona += `
         <tr id="${users[i]._id}">
           <td>${i + 1}</td>
           <td>${users[i].name}</td>
@@ -194,10 +212,7 @@ async function searchAdmin() {
           </td>
         </tr>
       `;
-  }
-  document.getElementById("table").innerHTML = cartona;
-  document.getElementById("totalAmount").innerHTML = totalAmount;  
-  
-
-  //update user
-}
+    }
+    document.getElementById("table").innerHTML = cartona;
+    document.getElementById("totalAmount").innerHTML = totalAmount;
+  });
